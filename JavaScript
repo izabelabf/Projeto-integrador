@@ -1,0 +1,120 @@
+const screens = ['login-screen', 'main-menu', 'agendar', 'consultas', 'sintomas']
+
+const showScreen = (id) => {
+  screens.forEach(s => document.getElementById(s).classList.add('hidden'))
+  document.getElementById(id).classList.remove('hidden')
+  narrarTela(id)
+}
+
+const login = () => {
+  const user = document.getElementById('user').value
+  const pass = document.getElementById('pass').value
+  if (user && pass) {
+    showScreen('main-menu')
+  } else {
+    alert('Preencha usuário e senha')
+    speak('Por favor, preencha usuário e senha.')
+  }
+}
+
+const navigate = (screenId) => showScreen(screenId)
+const goBack = () => showScreen('main-menu')
+
+const speak = (text) => {
+  const synth = window.speechSynthesis
+  synth.cancel()
+  const utterance = new SpeechSynthesisUtterance(text)
+  utterance.lang = 'pt-BR'
+  synth.speak(utterance)
+}
+
+const narrarTela = (id) => {
+  const mensagens = {
+    'agendar': 'Tela de agendamento. Escolha um especialista, data e horário.',
+    'consultas': 'Estas são suas consultas agendadas.',
+    'sintomas': 'Você pode falar ou digitar seus sintomas.',
+    'main-menu': 'Menu principal. Escolha uma opção.'
+  }
+  if (mensagens[id]) speak(mensagens[id])
+}
+
+const confirmarAgendamento = () => {
+  const especialista = document.getElementById('especialista').value
+  const data = document.getElementById('data-especialista').value
+  const horario = document.getElementById('horarios').value
+
+  if (!especialista || !data || !horario) {
+    alert('Preencha todos os campos')
+    speak('Por favor, preencha todos os campos para agendar.')
+    return
+  }
+
+  alert(`Consulta com ${especialista} em ${data} às ${horario} confirmada!`)
+  speak(`Consulta com ${especialista} agendada para ${data} às ${horario}`)
+  goBack()
+}
+
+const registrarSintomas = () => {
+  const texto = document.getElementById('campo-sintomas').value
+  if (!texto) {
+    alert('Digite os sintomas')
+    speak('Por favor, digite os sintomas.')
+    return
+  }
+  alert('Sintomas registrados!')
+  speak(`Sintomas registrados: ${texto}`)
+  document.getElementById('campo-sintomas').value = ''
+}
+
+// Calendário
+document.addEventListener('DOMContentLoaded', () => {
+  flatpickr("#data-especialista", {
+    dateFormat: "d/m/Y",
+    minDate: "today",
+    locale: "pt"
+  })
+})
+
+// Reconhecimento de voz
+let recognition
+let reconhecendo = false
+
+const iniciarReconhecimento = () => {
+  if (!('webkitSpeechRecognition' in window)) {
+    alert('Navegador não suporta reconhecimento de voz.')
+    return
+  }
+
+  recognition = new webkitSpeechRecognition()
+  recognition.lang = 'pt-BR'
+  recognition.interimResults = false
+
+  recognition.onstart = () => {
+    reconhecendo = true
+    document.getElementById('btnParar').disabled = false
+    speak('Pode começar a falar os sintomas.')
+  }
+
+  recognition.onresult = (event) => {
+    const texto = event.results[0][0].transcript
+    document.getElementById('campo-sintomas').value += texto + '. '
+  }
+
+  recognition.onerror = () => {
+    speak('Erro ao reconhecer sua voz.')
+  }
+
+  recognition.onend = () => {
+    reconhecendo = false
+    document.getElementById('btnParar').disabled = true
+  }
+
+  recognition.start()
+}
+
+const pararReconhecimento = () => {
+  if (reconhecendo) {
+    recognition.stop()
+    speak('Reconhecimento de voz parado.')
+  }
+}
