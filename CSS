@@ -1,0 +1,179 @@
+:root {
+  --main-blue: #54c5f8;
+  --main-bg: #e6f6fc;
+  --main-white: #ffffff;
+  --gray-text: #666;
+  --soft-border: #d9eaf3;
+  --font: 'Segoe UI', sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #dff3fc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  font-family: var(--font);
+}
+
+.phone {
+  width: 390px;
+  height: 844px;
+  border-radius: 36px;
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.2);
+  background: linear-gradient(to bottom, #e0f7ff, #ffffff);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.screen {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  gap: 20px;
+  width: 100%;
+}
+
+.hidden {
+  display: none;
+}
+
+.screen.scrollable {
+  justify-content: flex-start;
+  overflow-y: auto;
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+
+input, select, textarea {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid var(--soft-border);
+  border-radius: 12px;
+  font-size: 16px;
+  background-color: #f9fcfd;
+}
+
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: var(--main-blue);
+  box-shadow: 0 0 0 2px rgba(84, 197, 248, 0.2);
+}
+
+textarea {
+  resize: none;
+  min-height: 100px;
+}
+
+button {
+  padding: 14px;
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.btn-primary {
+  background: var(--main-blue);
+  color: white;
+}
+
+.btn-primary:hover {
+  background: #42b0dc;
+}
+
+.btn-secondary {
+  background: #f1faff;
+  color: var(--main-blue);
+  border: 1px solid var(--main-blue);
+}
+
+.btn-secondary:hover {
+  background: #d8f2fc;
+}
+
+.button {
+  background: #d0f1fb;
+  color: #054861;
+  border-radius: 16px;
+  padding: 20px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 18px;
+  cursor: pointer;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+  width: 100%;
+}
+
+.button:hover {
+  background: #b4e5f8;
+}
+
+.button.small {
+  padding: 15px;
+  font-size: 16px;
+  width: 150px;
+}
+
+.row {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.contact {
+  font-size: 13px;
+  text-align: center;
+  color: var(--gray-text);
+}
+
+.audio-btn {
+  background: #f1faff;
+  color: var(--main-blue);
+  padding: 10px;
+  font-size: 18px;
+  border: 1px solid var(--main-blue);
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.agendar-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+}
+
+.audio-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+
+audio {
+  width: 100%;
+  border-radius: 10px;
+  margin-top: 10px;
+  background: #f9fcfd;
+}
+
+.list {
+  padding-left: 20px;
+  color: #333;
+  width: 100%;
+}
