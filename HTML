@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Agendamento Médico</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+</head>
+<body>
+
+  <div class="phone">
+
+    <div id="login-screen" class="screen">
+      <h2>Login</h2>
+      <input type="text" id="user" placeholder="Usuário" />
+      <input type="password" id="pass" placeholder="Senha" />
+      <button onclick="login()" class="btn-primary">Entrar</button>
+    </div>
+
+    <!-- Menu Principal -->
+    <div id="main-menu" class="screen hidden">
+      <div class="button" onclick="navigate('agendar')">📅 AGENDAR EXAME</div>
+      <div class="row">
+        <div class="button small" onclick="navigate('consultas')">📋 CONSULTAS AGENDADAS</div>
+        <div class="button small" onclick="navigate('sintomas')">📝 REGISTRAR SINTOMAS</div>
+      </div>
+      <p class="contact">Fale diretamente com um de nossos atendentes</p>
+    </div>
+
+    <div id="agendar" class="screen hidden">
+      <h2>Agendamento</h2>
+      <div class="agendar-item">
+        <button onclick="speak('Selecione um especialista')" class="audio-btn">🔊</button>
+        <select id="especialista">
+          <option value="">Especialista</option>
+          <option>Cardiologista</option>
+          <option>Ortopedista</option>
+          <option>Clínico Geral</option>
+        </select>
+      </div>
+      <div class="agendar-item">
+        <button onclick="speak('Escolha uma data')" class="audio-btn">🔊</button>
+        <input type="text" id="data-especialista" placeholder="Data" />
+      </div>
+      <div class="agendar-item">
+        <button onclick="speak('Escolha um horário')" class="audio-btn">🔊</button>
+        <select id="horarios">
+          <option value="">Horário</option>
+          <option>08:00</option>
+          <option>10:00</option>
+          <option>14:00</option>
+        </select>
+      </div>
+      <button onclick="confirmarAgendamento()" class="btn-primary">✅ Confirmar</button>
+      <button onclick="goBack()" class="btn-secondary">← Voltar</button>
+    </div> 
+
+    <div id="consultas" class="screen hidden">
+      <h2>Consultas Agendadas</h2>
+      <ul class="list">
+        <li>Dr. João - 05/06/2025</li>
+        <li>Exame de sangue - 10/06/2025</li>
+      </ul>
+      <button onclick="goBack()" class="btn-secondary">← Voltar</button>
+    </div>
+
+    <div id="sintomas" class="screen hidden">
+      <h2>Registrar Sintomas</h2>
+      <textarea id="campo-sintomas" placeholder="Descreva os sintomas..."></textarea>
+      <div class="audio-controls">
+        <button onclick="iniciarReconhecimento()" class="btn-primary">🎙️ Falar Sintomas</button>
+        <button onclick="pararReconhecimento()" id="btnParar" class="btn-secondary" disabled>🛑 Parar</button>
+      </div>
+      <button onclick="registrarSintomas()" class="btn-primary">📤 Registrar</button>
+      <button onclick="goBack()" class="btn-secondary">← Voltar</button>
+    </div>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
